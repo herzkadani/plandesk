@@ -12,11 +12,6 @@ public class InMemoryData implements DataInterface{
     }
 
     @Override
-    public VorgangData getVorgangByID(int ID) {
-        
-    }
-
-    @Override
     public void editVorgang(String Attribut) {
 
     }

@@ -14,12 +14,6 @@ public interface DataInterface {
      * @param ID identifing the Vorgang
      */
     void deleteVorgangByID(int ID);
-
-    /**
-     * return
-     * @param ID
-     */
-    VorgangDto getVorgangByID(int ID);
     void editVorgang(String Attribut);
     void setMitarbeiterOfVorgang(int VorgangID, int MitarbeiterID);
     void editVorgangArray(int VorgangID, int SpaltenID);
