@@ -5,9 +5,16 @@ import java.util.ArrayList;
 public class InMemoryData implements DataInterface{
 
     private BoardData boardData;
-
+    //im implementing this right now
     @Override
-    public void createVorgang(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, String Type, int SpaltenID) {
+    public void createVorgang(String title, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, String type, int SpaltenID) {
+       switch(type){
+           case "BugFix":
+           VorgangData newvorgang = new BugFixData(0,title, beschreibung,mitarbeiter, dringlichkeit, null );
+           break;
+
+       }
+
 
     }
 
@@ -30,4 +37,5 @@ public class InMemoryData implements DataInterface{
     public void editVorgangArray(int VorgangID, int SpaltenID, int NewSpaltenID) {
 
     }
+
 }

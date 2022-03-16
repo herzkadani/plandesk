@@ -10,13 +10,13 @@ public class VorgangDto {
     private String titel;
     private String beschreibung;
     private ArrayList<MitarbeiterDto> mitarbeiter;
-    private int dringlichkeit;
+    private String dringlichkeit;
     private String type;
     private String meldeticket;
     private String function;
     private boolean genehmigt;
 
-    public VorgangDto(int ID, String titel, String beschreibung, ArrayList<MitarbeiterDto> mitarbeiter, int dringlichkeit, String type, String meldeticket, String function, boolean genehmigt) {
+    public VorgangDto(int ID, String titel, String beschreibung, ArrayList<MitarbeiterDto> mitarbeiter, String dringlichkeit, String type, String meldeticket, String function, boolean genehmigt) {
         this.ID = ID;
         this.titel = titel;
         this.beschreibung = beschreibung;
@@ -60,11 +60,11 @@ public class VorgangDto {
         this.mitarbeiter = mitarbeiter;
     }
 
-    public int getDringlichkeit() {
+    public String getDringlichkeit() {
         return dringlichkeit;
     }
 
-    public void setDringlichkeit(int dringlichkeit) {
+    public void setDringlichkeit(String dringlichkeit) {
         this.dringlichkeit = dringlichkeit;
     }
 }

@@ -1,5 +1,7 @@
 package ch.bbzbl.plandesk.data.desk;
 
+import com.vaadin.flow.component.template.Id;
+
 import java.util.ArrayList;
 
 public abstract class VorgangData {
@@ -8,9 +10,9 @@ public abstract class VorgangData {
     private String titel;
     private String beschreibung;
     private ArrayList<MitarbeiterData> mitarbeiter;
-    private int dringlichkeit;
+    private String dringlichkeit;
 
-    public VorgangData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, int dringlichkeit) {
+    public VorgangData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit) {
         this.ID = ID;
         this.titel = titel;
         this.beschreibung = beschreibung;
@@ -50,11 +52,11 @@ public abstract class VorgangData {
         this.mitarbeiter = mitarbeiter;
     }
 
-    public int getDringlichkeit() {
+    public String getDringlichkeit() {
         return dringlichkeit;
     }
 
-    public void setDringlichkeit(int dringlichkeit) {
+    public void setDringlichkeit(String dringlichkeit) {
         this.dringlichkeit = dringlichkeit;
     }
 
