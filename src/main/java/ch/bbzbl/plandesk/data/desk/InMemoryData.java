@@ -1,8 +1,13 @@
 package ch.bbzbl.plandesk.data.desk;
 
+import java.util.ArrayList;
+
 public class InMemoryData implements DataInterface{
+
+    private BoardData boardData;
+
     @Override
-    public void createVorgang(String Type) {
+    public void createVorgang(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, String Type, int SpaltenID) {
 
     }
 
@@ -12,7 +17,7 @@ public class InMemoryData implements DataInterface{
     }
 
     @Override
-    public void editVorgang(String Attribut) {
+    public void editVorgang(int VorgangID,String Attribut, String value) {
 
     }
 
@@ -22,7 +27,7 @@ public class InMemoryData implements DataInterface{
     }
 
     @Override
-    public void editVorgangArray(int VorgangID, int SpaltenID) {
+    public void editVorgangArray(int VorgangID, int SpaltenID, int NewSpaltenID) {
 
     }
 }

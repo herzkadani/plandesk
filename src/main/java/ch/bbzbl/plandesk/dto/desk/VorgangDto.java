@@ -2,20 +2,30 @@ package ch.bbzbl.plandesk.dto.desk;
 
 import ch.bbzbl.plandesk.data.desk.MitarbeiterData;
 
+import java.util.ArrayList;
+
 public class VorgangDto {
 
     private int ID;
     private String titel;
     private String beschreibung;
-    private MitarbeiterData mitarbeiter;
+    private ArrayList<MitarbeiterDto> mitarbeiter;
     private int dringlichkeit;
+    private String type;
+    private String meldeticket;
+    private String function;
+    private boolean genehmigt;
 
-    public VorgangDto(int ID, String titel, String beschreibung, MitarbeiterData mitarbeiter, int dringlichkeit) {
+    public VorgangDto(int ID, String titel, String beschreibung, ArrayList<MitarbeiterDto> mitarbeiter, int dringlichkeit, String type, String meldeticket, String function, boolean genehmigt) {
         this.ID = ID;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.mitarbeiter = mitarbeiter;
         this.dringlichkeit = dringlichkeit;
+        this.type = type;
+        this.meldeticket = meldeticket;
+        this.function = function;
+        this.genehmigt = genehmigt;
     }
 
     public int getID() {
@@ -42,11 +52,11 @@ public class VorgangDto {
         this.beschreibung = beschreibung;
     }
 
-    public MitarbeiterData getMitarbeiter() {
+    public ArrayList<MitarbeiterDto> getMitarbeiter() {
         return mitarbeiter;
     }
 
-    public void setMitarbeiter(MitarbeiterData mitarbeiter) {
+    public void setMitarbeiter(ArrayList<MitarbeiterDto> mitarbeiter) {
         this.mitarbeiter = mitarbeiter;
     }
 

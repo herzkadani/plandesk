@@ -1,12 +1,12 @@
-package ch.bbzbl.plandesk.data.desk;
+package ch.bbzbl.plandesk.dto.desk;
 
-public class MitarbeiterData {
+public class MitarbeiterDto {
 
     private int ID;
     private String vorname;
     private String nachname;
 
-    public MitarbeiterData(int ID, String vorname, String nachname) {
+    public MitarbeiterDto(int ID, String vorname, String nachname) {
         this.ID = ID;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -36,6 +36,5 @@ public class MitarbeiterData {
     public void setNachname(String nachname) {
         this.nachname = nachname;
     }
-
 
 }

@@ -1,14 +1,16 @@
 package ch.bbzbl.plandesk.data.desk;
 
-public class VorgangData {
+import java.util.ArrayList;
+
+public abstract class VorgangData {
 
     private int ID;
     private String titel;
     private String beschreibung;
-    private MitarbeiterData mitarbeiter;
+    private ArrayList<MitarbeiterData> mitarbeiter;
     private int dringlichkeit;
 
-    public VorgangData(int ID, String titel, String beschreibung, MitarbeiterData mitarbeiter, int dringlichkeit) {
+    public VorgangData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, int dringlichkeit) {
         this.ID = ID;
         this.titel = titel;
         this.beschreibung = beschreibung;
@@ -40,11 +42,11 @@ public class VorgangData {
         this.beschreibung = beschreibung;
     }
 
-    public MitarbeiterData getMitarbeiter() {
+    public ArrayList<MitarbeiterData> getMitarbeiter() {
         return mitarbeiter;
     }
 
-    public void setMitarbeiter(MitarbeiterData mitarbeiter) {
+    public void setMitarbeiter(ArrayList<MitarbeiterData> mitarbeiter) {
         this.mitarbeiter = mitarbeiter;
     }
 

@@ -1,27 +1,20 @@
-package ch.bbzbl.plandesk.data.desk;
+package ch.bbzbl.plandesk.dto.desk;
 
-import ch.bbzbl.plandesk.dto.desk.VorgangDto;
+import ch.bbzbl.plandesk.data.desk.VorgangData;
 
 import java.util.ArrayList;
 
-public class SpaltenData {
+public class SpaltenDto {
 
     private int ID;
     private String name;
     private String postition;
-    private ArrayList<VorgangData> vorgaenge = new ArrayList();
+    private ArrayList<VorgangDto> vorgaenge;
 
-    public SpaltenData(int ID, String name, String postition) {
+    public SpaltenDto(int ID, String name, String postition) {
         this.ID = ID;
         this.name = name;
         this.postition = postition;
-    }
-
-    public void addToVorgangArray(VorgangData vorgangData){
-        vorgaenge.add(vorgangData);
-    }
-    public void removeFromVorgangArray(VorgangData vorgangData){
-        vorgaenge.remove(vorgangData);
     }
 
     public int getID() {
@@ -48,9 +41,16 @@ public class SpaltenData {
         this.postition = postition;
     }
 
+    public void addToVorgangArray(VorgangDto vorgangDto){
+        vorgaenge.add(vorgangDto);
+    }
 
-    public ArrayList<VorgangData> getVorgaenge() {
+    public ArrayList<VorgangDto> getVorgaenge() {
         return vorgaenge;
+    }
+
+    public void setVorgaenge(ArrayList<VorgangDto> vorgaenge) {
+        this.vorgaenge = vorgaenge;
     }
 
 }
