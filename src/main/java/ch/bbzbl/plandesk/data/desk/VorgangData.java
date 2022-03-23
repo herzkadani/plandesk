@@ -1,7 +1,10 @@
 package ch.bbzbl.plandesk.data.desk;
 
-import com.vaadin.flow.component.template.Id;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 
 public abstract class VorgangData {
@@ -12,14 +15,17 @@ public abstract class VorgangData {
     private ArrayList<MitarbeiterData> mitarbeiter;
     private String dringlichkeit;
 
-    public VorgangData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit) {
-        this.ID = ID;
+    public VorgangData( String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit) {
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.mitarbeiter = mitarbeiter;
         this.dringlichkeit = dringlichkeit;
     }
 
+    @Id
+    @GenericGenerator(name="id" , strategy="increment")
+    @GeneratedValue
+    @Column(unique = true, nullable = false)
     public int getID() {
         return ID;
     }
@@ -60,6 +66,8 @@ public abstract class VorgangData {
         this.dringlichkeit = dringlichkeit;
     }
 
-
+    public void addMitarbeiter(MitarbeiterData mitarbeiterData){
+        mitarbeiter.add(mitarbeiterData);
+    }
 }
 

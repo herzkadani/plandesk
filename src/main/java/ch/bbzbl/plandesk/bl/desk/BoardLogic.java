@@ -2,6 +2,9 @@ package ch.bbzbl.plandesk.bl.desk;
 
 import ch.bbzbl.plandesk.data.desk.InMemoryData;
 import ch.bbzbl.plandesk.data.desk.MitarbeiterData;
+import ch.bbzbl.plandesk.dto.desk.BoardDto;
+import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
+import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 import java.util.ArrayList;
 
@@ -9,9 +12,43 @@ public class BoardLogic {
 
     InMemoryData inMemoryData = new InMemoryData();
 
-    public void createVorgang(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, String type, int SpaltenID){
-        inMemoryData.createVorgang(titel,beschreibung, dringlichkeit,  mitarbeiter, type, SpaltenID);
+    public void createBugFix(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String meldeTicket){
+        inMemoryData.createBugFix(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, meldeTicket);
+    }
+    public void createNewFunction(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, boolean genemigt){
+        inMemoryData.createNewFunction(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, genemigt);
     }
 
+    public void createVerbesserung(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String funktion){
+        inMemoryData.createVerbesserung(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, funktion);
+    }
+
+    public void deleteVorgangByID(int VorgangID){
+        inMemoryData.deleteVorgangByID(VorgangID);
+    }
+
+    public void updateVorgang(int VorgangID, VorgangDto vorgangDto){
+        inMemoryData.updateVorgang(VorgangID, vorgangDto);
+    }
+    public void setMitarbeiterOfVorgang(int VorgangID, ArrayList<MitarbeiterDto> mitarbeiter){
+        inMemoryData.setMitarbeiterOfVorgang(VorgangID, mitarbeiter);
+    }
+
+    public void updateSpaltenVorgangArray(int VorgangID, int NewSpalteID){
+        inMemoryData.editVorgangArray(VorgangID, NewSpalteID);
+    }
+
+    public BoardDto getBoard(){
+       return inMemoryData.getBoard();
+    }
+    public VorgangDto getVorgangByID(int VorgangID){
+        return null;
+    }
+    public void createSpalten(){
+
+    }
+    public void initBoard(){
+
+    }
 
 }

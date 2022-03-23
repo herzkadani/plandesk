@@ -8,8 +8,8 @@ public class BoardData {
     private ArrayList<SpaltenData> spalten = new ArrayList();
     private ArrayList<MitarbeiterData> mitarbeiter = new ArrayList();
 
-    public BoardData(String name) {
-        this.name = name;
+    public BoardData() {
+        this.name = "PlanDesk";
     }
 
     public void addNewMitarbeiter(MitarbeiterData mitarbeiterData){

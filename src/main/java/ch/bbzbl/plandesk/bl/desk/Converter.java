@@ -34,6 +34,17 @@ public class Converter {
         }
         return mitarbeiterDtos;
     }
+    public ArrayList<MitarbeiterData> convertToMitarbeiterData(ArrayList<MitarbeiterDto> mitarbeiter){
+
+        ArrayList<MitarbeiterData> mitarbeiterDatas = new ArrayList<>();
+
+        for (MitarbeiterDto mitarbeiterDto : mitarbeiter){
+            mitarbeiterDatas.add(new MitarbeiterData(mitarbeiterDto.getID(),
+                    mitarbeiterDto.getVorname(),
+                    mitarbeiterDto.getNachname()));
+        }
+        return mitarbeiterDatas;
+    }
 
 
     public SpaltenDto convertToSpaltenDto(SpaltenData spaltenData){
@@ -63,9 +74,9 @@ public class Converter {
                     bugFixData.getMeldeticket(),
                     null,
                     false);
-        }else if(vorgangData instanceof NewFunction){
+        }else if(vorgangData instanceof NewFunctionData){
 
-            NewFunction newFunction = (NewFunction) vorgangData;
+            NewFunctionData newFunction = (NewFunctionData) vorgangData;
 
             return new VorgangDto(newFunction.getID(),
                     newFunction.getTitel(),

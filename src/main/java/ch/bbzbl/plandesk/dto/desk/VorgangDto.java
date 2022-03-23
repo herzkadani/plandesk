@@ -67,4 +67,38 @@ public class VorgangDto {
     public void setDringlichkeit(String dringlichkeit) {
         this.dringlichkeit = dringlichkeit;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMeldeticket() {
+        return meldeticket;
+    }
+
+    public void setMeldeticket(String meldeticket) {
+        this.meldeticket = meldeticket;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
+    public boolean isGenehmigt() {
+        return genehmigt;
+    }
+
+    public void setGenehmigt(boolean genehmigt) {
+        this.genehmigt = genehmigt;
+    }
+
+
 }

@@ -1,7 +1,11 @@
 package ch.bbzbl.plandesk.data.desk;
 
 import ch.bbzbl.plandesk.dto.desk.VorgangDto;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 
 public class SpaltenData {
@@ -24,6 +28,11 @@ public class SpaltenData {
         vorgaenge.remove(vorgangData);
     }
 
+
+    @Id
+    @GenericGenerator(name="id" , strategy="increment")
+    @GeneratedValue
+    @Column(unique = true, nullable = false)
     public int getID() {
         return ID;
     }
