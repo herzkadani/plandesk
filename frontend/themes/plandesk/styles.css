@@ -26,3 +26,32 @@
       --lumo-success-text-color: hsl(155, 100%, 25%);
 
     }
+
+    .processDiv{
+    	border: 5px solid #0052cc;
+    	border-radius: 5px;
+    	padding: 10px;
+    }
+    
+    .columnDiv{
+    	border: 3px solid #0052cc;
+    	border-radius: 5px;
+    	padding: 10px;
+    }
+    
+    .Urgent{
+    	border-left: 10px solid #FF0000;
+    }
+    
+    .High{
+    	border-left: 10px solid #FF711F;
+    }
+    
+    .Medium{
+    	border-left: 10px solid #FFAB00;
+    }
+    
+    .Low{
+    	border-left: 10px solid #36B37E;
+    }
+   
