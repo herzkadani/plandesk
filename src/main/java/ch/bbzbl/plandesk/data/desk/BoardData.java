@@ -12,11 +12,6 @@ public class BoardData {
         this.name = "PlanDesk";
     }
 
-    public void addNewMitarbeiter(MitarbeiterData mitarbeiterData){
-        mitarbeiter.add(mitarbeiterData);
-    }
-
-
     public ArrayList<SpaltenData> getSpalten() {
         return spalten;
     }

@@ -6,6 +6,8 @@ import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 import java.util.ArrayList;
 
+//split in kleinere Interfaces
+
 public interface DataInterface {
     /**
      * creates a new Vorgang

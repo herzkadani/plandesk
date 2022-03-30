@@ -6,7 +6,7 @@ public class MitarbeiterData {
     private String vorname;
     private String nachname;
 
-    public MitarbeiterData(int ID, String vorname, String nachname) {
+    public MitarbeiterData(int ID,String vorname, String nachname) {
         this.ID = ID;
         this.vorname = vorname;
         this.nachname = nachname;

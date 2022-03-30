@@ -15,6 +15,7 @@ public class BoardLogic {
     public void createBugFix(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String meldeTicket){
         inMemoryData.createBugFix(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, meldeTicket);
     }
+
     public void createNewFunction(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, boolean genemigt){
         inMemoryData.createNewFunction(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, genemigt);
     }
@@ -30,6 +31,7 @@ public class BoardLogic {
     public void updateVorgang(int VorgangID, VorgangDto vorgangDto){
         inMemoryData.updateVorgang(VorgangID, vorgangDto);
     }
+
     public void setMitarbeiterOfVorgang(int VorgangID, ArrayList<MitarbeiterDto> mitarbeiter){
         inMemoryData.setMitarbeiterOfVorgang(VorgangID, mitarbeiter);
     }
@@ -41,14 +43,14 @@ public class BoardLogic {
     public BoardDto getBoard(){
        return inMemoryData.getBoard();
     }
-    public VorgangDto getVorgangByID(int VorgangID){
-        return null;
-    }
-    public void createSpalten(){
 
+    public VorgangDto getVorgangByID(int VorgangID){
+        return inMemoryData.getVorgangByID(VorgangID);
     }
+
     public void initBoard(){
 
+        inMemoryData.initBoard();
     }
 
 }

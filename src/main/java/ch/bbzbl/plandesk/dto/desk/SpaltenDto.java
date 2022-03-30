@@ -8,13 +8,12 @@ public class SpaltenDto {
 
     private int ID;
     private String name;
-    private String postition;
-    private ArrayList<VorgangDto> vorgaenge;
+    private ArrayList<VorgangDto> vorgaenge = new ArrayList<>();
 
-    public SpaltenDto(int ID, String name, String postition) {
+    public SpaltenDto(int ID, String name) {
         this.ID = ID;
         this.name = name;
-        this.postition = postition;
+
     }
 
     public int getID() {
@@ -31,14 +30,6 @@ public class SpaltenDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPostition() {
-        return postition;
-    }
-
-    public void setPostition(String postition) {
-        this.postition = postition;
     }
 
     public void addToVorgangArray(VorgangDto vorgangDto){

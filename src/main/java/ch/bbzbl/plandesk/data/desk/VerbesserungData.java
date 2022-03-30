@@ -6,8 +6,8 @@ public class VerbesserungData extends VorgangData{
 
     private String function;
 
-    public VerbesserungData(String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, String function) {
-        super(titel, beschreibung, mitarbeiter, dringlichkeit);
+    public VerbesserungData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, String function) {
+        super(ID,titel, beschreibung, mitarbeiter, dringlichkeit);
         this.function = function;
     }
 

@@ -10,25 +10,31 @@ import java.util.ArrayList;
 public class InMemoryData implements DataInterface{
 
     private BoardData boardData;
-    private Converter converter = new Converter();
+    private final Converter converter = new Converter();
+    private int vorgangCounter;
+    private int spaltenCounter;
+    private int mitarbeiterCounter;
 
     @Override
     public void createBugFix(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String meldeTicket) {
 
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new BugFixData(name, beschreibung,mitarbeiter, dringlichkeit, meldeTicket));
+                new BugFixData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, meldeTicket));
+        vorgangCounter++;
     }
 
     @Override
     public void createNewFunction(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, boolean genemigt) {
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new NewFunctionData(name, beschreibung,mitarbeiter, dringlichkeit, genemigt ));
+                new NewFunctionData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, genemigt ));
+        vorgangCounter++;
     }
 
     @Override
     public void createVerbesserung(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String funktion) {
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new VerbesserungData(name, beschreibung,mitarbeiter, dringlichkeit, funktion ));
+                new VerbesserungData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, funktion ));
+    vorgangCounter++;
     }
 
     @Override
@@ -51,7 +57,7 @@ public class InMemoryData implements DataInterface{
                 if(VD.getID() == VorgangID){
                     VD.setTitel(vorgangDto.getTitel());
                     VD.setBeschreibung(vorgangDto.getBeschreibung());
-                    VD.setMitarbeiter(converter.convertToMitarbeiterData(vorgangDto.getMitarbeiter()));
+                    VD.setMitarbeiter(converter.convertToMitarbeiterData(boardData.getMitarbeiter(), vorgangDto.getMitarbeiter()));
                     VD.setDringlichkeit(vorgangDto.getDringlichkeit());
                 }
             }
@@ -65,7 +71,8 @@ public class InMemoryData implements DataInterface{
         for(SpaltenData SD: boardData.getSpalten()){
             for(VorgangData VD: SD.getVorgaenge()){
                 if(VD.getID() == VorgangID){
-                    VD.setMitarbeiter(converter.convertToMitarbeiterData(mitarbeiter));
+
+                    VD.setMitarbeiter(converter.convertToMitarbeiterData(boardData.getMitarbeiter(), mitarbeiter));
                 }
             }
         }
@@ -85,20 +92,48 @@ public class InMemoryData implements DataInterface{
         }
         getSpalteByID(NewSpaltenID).addToVorgangArray(transVorgang);
     }
-    public BoardDto getBoard(){
+
+    public BoardDto getBoard() {
         return converter.convertBoardToDto(boardData);
     }
-    public VorgangDto getVorgangByID(int VorgangID){
+
+    public VorgangDto getVorgangByID(int VorgangID) {
+        for (SpaltenData SD : boardData.getSpalten()) {
+            for (VorgangData VD : SD.getVorgaenge()) {
+                if (VD.getID() == VorgangID) {
+                    return converter.convertToVorgangDto(VD);
+                }
+            }
+        }
         return null;
     }
-    public void createSpalten(){
+
+    public void initBoard() {
+
+        boardData = new BoardData();
+        boardData.setName("PlanDesk");
+
+        String[] spaltenNamen = {"Backlog","In Progress", "On Hold", "Done" };
+        String[] vornamen = {"Dani", "Enea", "Levi", "Oliver", "Simon"};
+        String[] nachnamen = {"Herzka", "Siess", "Burn", "Saladin", "Emmisberger"};
+
+        for(int i = 0;  i < 4; i++){
+            boardData.addSpalte(new SpaltenData(spaltenCounter, spaltenNamen[i]));
+            spaltenCounter++;
+        }
+
+        for(int f = 0;  f < 5; f++){
+            boardData.addMitarbeiter(createMitarbeiter(mitarbeiterCounter, vornamen[f],nachnamen[f]));
+            mitarbeiterCounter++;
+        }
 
     }
-    public void initBoard(){
 
+    public MitarbeiterData createMitarbeiter(int ID,String vorname, String nachname){
+            return new MitarbeiterData(ID, vorname, nachname);
     }
 
-    public SpaltenData getSpalteByID(int SpaltenId){
+    public SpaltenData getSpalteByID(int SpaltenId) {
 
         for(SpaltenData SD : boardData.getSpalten()){
             if(SD.getID() == SpaltenId){

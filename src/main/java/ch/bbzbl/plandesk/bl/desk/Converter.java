@@ -27,31 +27,32 @@ public class Converter {
 
         ArrayList<MitarbeiterDto> mitarbeiterDtos = new ArrayList<>();
 
-        for (MitarbeiterData mitarbeiterData : mitarbeiter){
-           mitarbeiterDtos.add(new MitarbeiterDto(mitarbeiterData.getID(),
-                   mitarbeiterData.getVorname(),
-                   mitarbeiterData.getNachname()));
+        for (MitarbeiterData mitarbeiterData : mitarbeiter) {
+            mitarbeiterDtos.add(new MitarbeiterDto(mitarbeiterData.getID(),
+                    mitarbeiterData.getVorname(),
+                    mitarbeiterData.getNachname()));
         }
         return mitarbeiterDtos;
     }
-    public ArrayList<MitarbeiterData> convertToMitarbeiterData(ArrayList<MitarbeiterDto> mitarbeiter){
+
+    public ArrayList<MitarbeiterData> convertToMitarbeiterData(ArrayList<MitarbeiterData> mitarbeiterData, ArrayList<MitarbeiterDto> mitarbeiter) {
 
         ArrayList<MitarbeiterData> mitarbeiterDatas = new ArrayList<>();
 
-        for (MitarbeiterDto mitarbeiterDto : mitarbeiter){
-            mitarbeiterDatas.add(new MitarbeiterData(mitarbeiterDto.getID(),
-                    mitarbeiterDto.getVorname(),
-                    mitarbeiterDto.getNachname()));
+        for (MitarbeiterData mitarbeiterData1 : mitarbeiterData) {
+            for (MitarbeiterDto mitarbeiterDto : mitarbeiter) {
+                if(mitarbeiterData1.getID() == mitarbeiterDto.getID()){
+                    mitarbeiterDatas.add(mitarbeiterData1);
+                }
+            }
         }
         return mitarbeiterDatas;
     }
 
-
     public SpaltenDto convertToSpaltenDto(SpaltenData spaltenData){
 
         SpaltenDto spaltenDto = new SpaltenDto(spaltenData.getID(),
-                spaltenData.getName(),
-                spaltenData.getPostition());
+                spaltenData.getName());
 
         for (VorgangData vorgangData : spaltenData.getVorgaenge()){
             spaltenDto.addToVorgangArray(convertToVorgangDto(vorgangData));

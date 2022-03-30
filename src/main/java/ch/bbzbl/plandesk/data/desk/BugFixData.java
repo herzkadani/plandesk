@@ -6,8 +6,8 @@ public class BugFixData extends VorgangData{
 
     private String Meldeticket;
 
-    public BugFixData(String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, String meldeticket) {
-        super(titel, beschreibung, mitarbeiter, dringlichkeit);
+    public BugFixData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, String meldeticket) {
+        super(ID, titel, beschreibung, mitarbeiter, dringlichkeit);
         Meldeticket = meldeticket;
     }
 

@@ -15,7 +15,8 @@ public abstract class VorgangData {
     private ArrayList<MitarbeiterData> mitarbeiter;
     private String dringlichkeit;
 
-    public VorgangData( String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit) {
+    public VorgangData(int ID, String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit) {
+        this.ID = ID;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.mitarbeiter = mitarbeiter;

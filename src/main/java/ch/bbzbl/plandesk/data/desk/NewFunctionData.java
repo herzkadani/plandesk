@@ -6,8 +6,8 @@ public class NewFunctionData extends VorgangData{
 
     private boolean genehmigt;
 
-    public NewFunctionData(String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, boolean genehmigt) {
-        super(titel, beschreibung, mitarbeiter, dringlichkeit);
+    public NewFunctionData(int ID,String titel, String beschreibung, ArrayList<MitarbeiterData> mitarbeiter, String dringlichkeit, boolean genehmigt) {
+        super(ID,titel, beschreibung, mitarbeiter, dringlichkeit);
         this.genehmigt = genehmigt;
     }
 
