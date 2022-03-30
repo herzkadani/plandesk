@@ -3,6 +3,7 @@ package ch.bbzbl.plandesk.data.desk;
 import ch.bbzbl.plandesk.bl.desk.Converter;
 import ch.bbzbl.plandesk.dto.desk.BoardDto;
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
+import ch.bbzbl.plandesk.dto.desk.SpaltenDto;
 import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 import java.util.ArrayList;
@@ -138,6 +139,17 @@ public class InMemoryData implements DataInterface{
         for(SpaltenData SD : boardData.getSpalten()){
             if(SD.getID() == SpaltenId){
                 return SD;
+            }
+        }
+        return null;
+    }
+
+    public SpaltenDto getSpalteByVorgangID(int VorgangID) {
+        for (SpaltenData SD : boardData.getSpalten()) {
+            for (VorgangData VD : SD.getVorgaenge()) {
+                if (VD.getID() == VorgangID) {
+                     return converter.convertToSpaltenDto(SD);
+                }
             }
         }
         return null;

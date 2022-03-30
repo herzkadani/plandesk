@@ -12,12 +12,11 @@ class InMemoryDataTest {
 
     @BeforeEach
     void setUp() {
-
+        inMemoryData.initBoard();
     }
 
     @Test
     void createBugFix() {
-        inMemoryData.initBoard();
 
         ArrayList<MitarbeiterData> mitarbeiterData = new ArrayList<>();
         mitarbeiterData.add(new MitarbeiterData(5,"Iven", "Kuder"));

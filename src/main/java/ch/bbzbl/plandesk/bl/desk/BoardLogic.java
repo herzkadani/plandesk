@@ -4,6 +4,7 @@ import ch.bbzbl.plandesk.data.desk.InMemoryData;
 import ch.bbzbl.plandesk.data.desk.MitarbeiterData;
 import ch.bbzbl.plandesk.dto.desk.BoardDto;
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
+import ch.bbzbl.plandesk.dto.desk.SpaltenDto;
 import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 import java.util.ArrayList;
@@ -42,6 +43,10 @@ public class BoardLogic {
 
     public BoardDto getBoard(){
        return inMemoryData.getBoard();
+    }
+
+    public SpaltenDto getSpalteByVorgangID(int VorgangID){
+        return inMemoryData.getSpalteByVorgangID(VorgangID);
     }
 
     public VorgangDto getVorgangByID(int VorgangID){
