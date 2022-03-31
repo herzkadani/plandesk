@@ -3,6 +3,8 @@ package ch.bbzbl.plandesk.views.desk;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.vaadin.gatanaso.MultiselectComboBox;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
@@ -128,20 +130,20 @@ public class DeskView extends VerticalLayout {
 				"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et");
 
 		
-//		MultiselectComboBox<String> userMultiselect = new MultiselectComboBox();
-//		userMultiselect.setLabel("Mitarbeiter");
-//		userMultiselect.setPlaceholder("Mitarbeiter auswählen...");
-//		userMultiselect.setItems(users);
-//		userMultiselect.addValueChangeListener(event-> System.out.println(""));
-		VerticalLayout userListLayout = new VerticalLayout();
-		userListLayout.add(new Paragraph("Mitarbeiter"));
-		for (String user : users) {
-			HorizontalLayout userLayout = new HorizontalLayout();
-			userLayout.setAlignItems(Alignment.CENTER);
-			userLayout.getStyle().set("margin-top", "5px");
-			userLayout.add(new Checkbox(), new Avatar(user), new Paragraph(user));
-			userListLayout.add(userLayout);
-		}
+		MultiselectComboBox<String> userMultiselect = new MultiselectComboBox();
+		userMultiselect.setLabel("Mitarbeiter");
+		userMultiselect.setPlaceholder("Mitarbeiter auswählen...");
+		userMultiselect.setItems(users);
+		
+//		VerticalLayout userListLayout = new VerticalLayout();
+//		userListLayout.add(new Paragraph("Mitarbeiter"));
+//		for (String user : users) {
+//			HorizontalLayout userLayout = new HorizontalLayout();
+//			userLayout.setAlignItems(Alignment.CENTER);
+//			userLayout.getStyle().set("margin-top", "5px");
+//			userLayout.add(new Checkbox(), new Avatar(user), new Paragraph(user));
+//			userListLayout.add(userLayout);
+//		}
 
 		ComboBox<String> urgency = new ComboBox<>("Dringlichkeit");
 		urgency.setItems(IViewConstants.LOW, IViewConstants.MEDIUM, IViewConstants.HIGH, IViewConstants.URGENT);
@@ -189,7 +191,7 @@ public class DeskView extends VerticalLayout {
 		rightButtonsWrapper.setJustifyContentMode(JustifyContentMode.END);
 		buttonLayout.add(deleteBtn, rightButtonsWrapper);
 
-		dialogLayout.add(column, processTitle, processDescription, userListLayout, urgency, buttonLayout);
+		dialogLayout.add(column, processTitle, processDescription, userMultiselect, urgency, buttonLayout);
 
 		dialog.add(dialogLayout);
 		dialog.open();
