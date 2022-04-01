@@ -1,5 +1,6 @@
 package ch.bbzbl.plandesk.data.desk;
 
+import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +19,13 @@ class InMemoryDataTest {
     @Test
     void createBugFix() {
 
-        ArrayList<MitarbeiterData> mitarbeiterData = new ArrayList<>();
-        mitarbeiterData.add(new MitarbeiterData(5,"Iven", "Kuder"));
+        ArrayList<MitarbeiterDto> mitarbeiterDto = new ArrayList<>();
+        mitarbeiterDto.add(new MitarbeiterDto(5,"Iven", "Kuder"));
 
         inMemoryData.createBugFix("Gutscheincode nicht erkannt",
                 "Gutschein wird beim Bezahlen als Falsch erkannt und nicht eingelöst",
                 "Low",
-                mitarbeiterData,
+                mitarbeiterDto,
                 2,
                 "EST-2012"
                 );

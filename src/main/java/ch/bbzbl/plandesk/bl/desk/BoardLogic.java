@@ -13,15 +13,15 @@ public class BoardLogic {
 
     InMemoryData inMemoryData = new InMemoryData();
 
-    public void createBugFix(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String meldeTicket){
+    public void createBugFix(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String meldeTicket){
         inMemoryData.createBugFix(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, meldeTicket);
     }
 
-    public void createNewFunction(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, boolean genemigt){
+    public void createNewFunction(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, boolean genemigt){
         inMemoryData.createNewFunction(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, genemigt);
     }
 
-    public void createVerbesserung(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String funktion){
+    public void createVerbesserung(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String funktion){
         inMemoryData.createVerbesserung(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, funktion);
     }
 

@@ -17,24 +17,24 @@ public class InMemoryData implements DataInterface{
     private int mitarbeiterCounter;
 
     @Override
-    public void createBugFix(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String meldeTicket) {
+    public void createBugFix(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String meldeTicket) {
 
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new BugFixData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, meldeTicket));
+                new BugFixData(vorgangCounter,name, beschreibung,converter.convertToMitarbeiterData(boardData.getMitarbeiter(),mitarbeiter), dringlichkeit, meldeTicket));
         vorgangCounter++;
     }
 
     @Override
-    public void createNewFunction(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, boolean genemigt) {
+    public void createNewFunction(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, boolean genemigt) {
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new NewFunctionData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, genemigt ));
+                new NewFunctionData(vorgangCounter,name, beschreibung,converter.convertToMitarbeiterData(boardData.getMitarbeiter(),mitarbeiter), dringlichkeit, genemigt ));
         vorgangCounter++;
     }
 
     @Override
-    public void createVerbesserung(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpaltenID, String funktion) {
+    public void createVerbesserung(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String funktion) {
         getSpalteByID(SpaltenID).addToVorgangArray(
-                new VerbesserungData(vorgangCounter,name, beschreibung,mitarbeiter, dringlichkeit, funktion ));
+                new VerbesserungData(vorgangCounter,name, beschreibung,converter.convertToMitarbeiterData(boardData.getMitarbeiter(),mitarbeiter), dringlichkeit, funktion ));
     vorgangCounter++;
     }
 

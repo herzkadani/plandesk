@@ -14,20 +14,20 @@ public interface DataInterface {
      *
      * @param SpatenID identifing the Spalte of Vorgang
      */
-    void createBugFix(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpatenID, String meldeTicket);
+    void createBugFix(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpatenID, String meldeTicket);
     /**
      * creates a new Vorgang
      *
      * @param SpatenID identifing the Spalte of Vorgang
      */
-    void createNewFunction(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpatenID, boolean genemigt);
+    void createNewFunction(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpatenID, boolean genemigt);
     /**
      * creates a new Vorgang
      *
      * @param SpatenID identifing the Spalte of Vorgang
      */
 
-    void createVerbesserung(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterData> mitarbeiter, int SpatenID, String funktion);
+    void createVerbesserung(String name, String beschreibung,String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpatenID, String funktion);
 
     /**
      * deletes a Vorgang
