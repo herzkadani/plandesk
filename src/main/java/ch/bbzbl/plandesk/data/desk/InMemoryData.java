@@ -41,12 +41,15 @@ public class InMemoryData implements DataInterface{
     @Override
     public void deleteVorgangByID(int ID) {
 
+        VorgangData vd = null;
+
         for(SpaltenData SD: boardData.getSpalten()){
             for(VorgangData VD: SD.getVorgaenge()){
                 if(VD.getID() == ID){
-                    SD.removeFromVorgangArray(VD);
+                    vd = VD;
                 }
             }
+            SD.removeFromVorgangArray(vd);
         }
     }
 
