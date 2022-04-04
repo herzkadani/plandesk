@@ -1,10 +1,5 @@
 package ch.bbzbl.plandesk.data.desk;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 
 public abstract class VorgangData {
@@ -23,10 +18,10 @@ public abstract class VorgangData {
         this.dringlichkeit = dringlichkeit;
     }
 
-    @Id
-    @GenericGenerator(name="id" , strategy="increment")
-    @GeneratedValue
-    @Column(unique = true, nullable = false)
+//    @Id
+//    @GenericGenerator(name="id" , strategy="increment")
+//    @GeneratedValue
+//    @Column(unique = true, nullable = false)
     public int getID() {
         return ID;
     }
