@@ -87,9 +87,9 @@ public class InMemoryData implements DataInterface{
             for(VorgangData VD: SD.getVorgaenge()){
                 if(VD.getID() == VorgangID){
                     transVorgang = VD;
-                    SD.removeFromVorgangArray(VD);
                 }
             }
+            SD.removeFromVorgangArray(transVorgang);
         }
         getSpalteByID(NewSpaltenID).addToVorgangArray(transVorgang);
     }
