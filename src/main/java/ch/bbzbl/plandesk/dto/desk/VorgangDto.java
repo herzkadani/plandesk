@@ -1,7 +1,5 @@
 package ch.bbzbl.plandesk.dto.desk;
 
-import ch.bbzbl.plandesk.data.desk.MitarbeiterData;
-
 import java.util.ArrayList;
 
 public class VorgangDto {

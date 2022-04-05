@@ -12,6 +12,8 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
+import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
+
 @CssImport("./themes/plandesk/styles.css")
 public class ProcessDiv extends Div {
 
@@ -21,7 +23,7 @@ public class ProcessDiv extends Div {
 	private AvatarGroup avatarGroup;
 	private Image type;
 	
-	public ProcessDiv(String header, List<String> users, String urgency, String type) {
+	public ProcessDiv(String header, List<MitarbeiterDto> users, String urgency, String type) {
 		this.header = new H3(header);
 		bottomWrapper = new HorizontalLayout();
 		avatarGroup = new AvatarGroup();
@@ -30,8 +32,8 @@ public class ProcessDiv extends Div {
 		this.header.getStyle().set("margin-top", "5px");
 		
 		
-		for(String user: users) {
-			avatarGroup.add(new AvatarGroupItem(user));
+		for(MitarbeiterDto user: users) {
+			avatarGroup.add(new AvatarGroupItem(user.getVorname() +" "+ user.getNachname()));
 		}
 		
 		this.type.setWidth("36px");

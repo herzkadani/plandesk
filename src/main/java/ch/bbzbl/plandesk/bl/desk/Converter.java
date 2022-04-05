@@ -5,6 +5,7 @@ import ch.bbzbl.plandesk.dto.desk.BoardDto;
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
 import ch.bbzbl.plandesk.dto.desk.SpaltenDto;
 import ch.bbzbl.plandesk.dto.desk.VorgangDto;
+import ch.bbzbl.plandesk.views.desk.IViewConstants;
 
 import java.util.ArrayList;
 
@@ -97,7 +98,7 @@ public class Converter {
                     bugFixData.getBeschreibung(),
                     convertToMitarbeiterDto(bugFixData.getMitarbeiter()),
                     bugFixData.getDringlichkeit(),
-                    "BugFix",
+                    IViewConstants.BUGFIX,
                     bugFixData.getMeldeticket(),
                     null,
                     false);
@@ -110,7 +111,7 @@ public class Converter {
                     newFunction.getBeschreibung(),
                     convertToMitarbeiterDto(newFunction.getMitarbeiter()),
                     newFunction.getDringlichkeit(),
-                    "NewFunction",
+                    IViewConstants.NEW_FEATURE,
                     null,
                     null,
                     newFunction.isGenehmigt());
@@ -125,7 +126,7 @@ public class Converter {
                     vorgangData.getBeschreibung(),
                     convertToMitarbeiterDto(verbesserungData.getMitarbeiter()),
                     verbesserungData.getDringlichkeit(),
-                    "Verbesserung",
+                    IViewConstants.IMPROVEMENT,
                     null,
                     verbesserungData.getFunction(),
                     false);

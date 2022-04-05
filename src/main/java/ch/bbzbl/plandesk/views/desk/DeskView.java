@@ -3,28 +3,38 @@ package ch.bbzbl.plandesk.views.desk;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.vaadin.gatanaso.MultiselectComboBox;
 
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+
+import ch.bbzbl.plandesk.bl.desk.BoardLogic;
+import ch.bbzbl.plandesk.dto.desk.BoardDto;
+import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
+import ch.bbzbl.plandesk.dto.desk.SpaltenDto;
+import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 @PWA(name = "PlanDesk", shortName = "PlanDesk", enableInstallPrompt = false)
 @Theme(themeFolder = "plandesk")
@@ -36,71 +46,85 @@ public class DeskView extends VerticalLayout {
 	private static final long serialVersionUID = -7532896783327421334L;
 
 	// Components
+	private VerticalLayout wrapper;
 	private HorizontalLayout header;
 	private HorizontalLayout addProcessWrapper;
 	private HorizontalLayout main;
 	private H2 title;
-	private Button addProcess;
+	private Button btnAddProcess;
 
 	// Members
-	List<String> users;
+	List<MitarbeiterDto> users;
+	private BoardLogic boardLogic;
 
 	/**
 	 * Constructor
 	 */
 	public DeskView() {
+		// init the board
+		boardLogic = new BoardLogic();
+		boardLogic.initBoard();
+
+		wrapper = new VerticalLayout();
+
+		List<MitarbeiterDto> list = new ArrayList<>();
+		list.add(new MitarbeiterDto(1, "test", "test"));
+		new ProcessDiv("header", list, IViewConstants.URGENT, IViewConstants.BUGFIX);
+	}
+
+	@PostConstruct
+	private void initUi() {
+		if (wrapper.getChildren().findAny().isPresent())
+			wrapper.removeAll();
+		wrapper.setSizeFull();
+
+		BoardDto board = boardLogic.getBoard();
+		users = board.getMitarbeiter();
+
 		header = new HorizontalLayout();
 		header.setWidthFull();
 
-		title = new H2("PlanDesk");
+		title = new H2(board.getName());
 		title.getStyle().set("margin-top", "0");
 
-		addProcess = new Button("Vorgang hinzufügen", new Icon(VaadinIcon.PLUS));
-		addProcess.addClickListener(e -> createNewProcess());
+		btnAddProcess = new Button("Vorgang hinzufügen", new Icon(VaadinIcon.PLUS));
+		btnAddProcess.addClickListener(e -> createNewProcess());
+
 		addProcessWrapper = new HorizontalLayout();
 		addProcessWrapper.setWidthFull();
 		addProcessWrapper.setJustifyContentMode(JustifyContentMode.END);
-		addProcessWrapper.add(addProcess);
-
+		addProcessWrapper.add(btnAddProcess);
 		header.setWidthFull();
 
 		header.add(title, addProcessWrapper);
 
-		users = new ArrayList<String>();
-		users.add("Dani Herzka");
-		users.add("Iven Kuder");
-		users.add("Levi Burn ");
-		users.add("Oliver Saladin");
-		users.add("Test Eins");
-		users.add("Test Zwei");
-		users.add("Test Drei");
-		users.add("Test Vier");
-
-		ProcessDiv proDiv = new ProcessDiv("Lorem ipsum dolor sit amet", users, IViewConstants.URGENT,
-				IViewConstants.BUGFIX);
-		proDiv.addClickListener(e -> openProcess(926));
-
-		List<ProcessDiv> procList = new ArrayList<ProcessDiv>();
-		procList.add(proDiv);
-
-		ColumnDiv colDiv1 = new ColumnDiv("Backlog", procList);
-		ColumnDiv colDiv2 = new ColumnDiv("In Progress", new ArrayList<ProcessDiv>());
-		ColumnDiv colDiv3 = new ColumnDiv("On Hold", new ArrayList<ProcessDiv>());
-		ColumnDiv colDiv4 = new ColumnDiv("Done", new ArrayList<ProcessDiv>());
-	
-
 		main = new HorizontalLayout();
 		main.setHeight("90%");
 		main.setWidthFull();
-		main.add(colDiv1, colDiv2, colDiv3, colDiv4);
 
-		add(header, main);
+		
+		//load data
+		for (SpaltenDto spalte : board.getSpalten()) {
+			ColumnDiv columnDiv = new ColumnDiv(spalte.getName());
+			main.add(columnDiv);
+			for (VorgangDto vorgang : spalte.getVorgaenge()) {
+				ProcessDiv processDiv = new ProcessDiv(vorgang.getTitel(), vorgang.getMitarbeiter(),
+						vorgang.getDringlichkeit(), vorgang.getType());
+				processDiv.addClickListener(event -> openProcess(vorgang.getID()));
+				columnDiv.add(processDiv);
+			}
+		}
+
+		wrapper.add(header, main);
 
 		setSpacing(true);
 		setPadding(true);
 		setSizeFull();
 		setJustifyContentMode(JustifyContentMode.CENTER);
 		setAlignItems(Alignment.END);
+
+		if (getChildren().findAny().isEmpty())
+			add(wrapper);
 	}
 
 	/**
@@ -109,6 +133,7 @@ public class DeskView extends VerticalLayout {
 	 * @param processId the id of the process
 	 */
 	private void openProcess(int processId) {
+		VorgangDto vorgang = boardLogic.getVorgangByID(processId);
 		Dialog dialog = new Dialog();
 		VerticalLayout dialogLayout = new VerticalLayout();
 
@@ -119,49 +144,86 @@ public class DeskView extends VerticalLayout {
 		dialog.setHeight("70%");
 
 		ComboBox<String> column = new ComboBox<>("Spalte");
-		column.setItems("Backlog", "In Progress", "On Hold", "Done");
-		column.setValue("Backlog");
+		List<String> columnNames = new ArrayList<>();
+		boardLogic.getBoard().getSpalten().forEach(col->columnNames.add(col.getName()));
+		column.setItems(columnNames);
+		column.setValue(boardLogic.getSpalteByVorgangID(processId).getName());
 
 		TextField processTitle = new TextField("Titel");
-		processTitle.setValue("Lorem ipsum dolor sit amet");
+		if (vorgang.getTitel() != null)
+			processTitle.setValue(vorgang.getTitel());
 
 		TextArea processDescription = new TextArea("Beschreibung");
-		processDescription.setValue(
-				"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et");
+		if (vorgang.getBeschreibung() != null)
+			processDescription.setValue(vorgang.getBeschreibung());
 
-		
-		MultiselectComboBox<String> userMultiselect = new MultiselectComboBox();
+		MultiselectComboBox<MitarbeiterDto> userMultiselect = new MultiselectComboBox<>();
 		userMultiselect.setLabel("Mitarbeiter");
 		userMultiselect.setPlaceholder("Mitarbeiter auswählen...");
 		userMultiselect.setItems(users);
-		
-//		VerticalLayout userListLayout = new VerticalLayout();
-//		userListLayout.add(new Paragraph("Mitarbeiter"));
-//		for (String user : users) {
-//			HorizontalLayout userLayout = new HorizontalLayout();
-//			userLayout.setAlignItems(Alignment.CENTER);
-//			userLayout.getStyle().set("margin-top", "5px");
-//			userLayout.add(new Checkbox(), new Avatar(user), new Paragraph(user));
-//			userListLayout.add(userLayout);
-//		}
+		userMultiselect.select(vorgang.getMitarbeiter());
+		userMultiselect.setItemLabelGenerator(user -> user.getVorname() + " " + user.getNachname());
 
 		ComboBox<String> urgency = new ComboBox<>("Dringlichkeit");
 		urgency.setItems(IViewConstants.LOW, IViewConstants.MEDIUM, IViewConstants.HIGH, IViewConstants.URGENT);
+		urgency.setValue(vorgang.getDringlichkeit());
+		
+		// custom value
+		Div customValDiv = new Div();
+		if(vorgang.getType().equals(IViewConstants.BUGFIX)){
+			TextField entryTicketTxt = new TextField("Meldeticket");
+			entryTicketTxt.setValue(vorgang.getMeldeticket());
+			entryTicketTxt.getStyle().set("width", "100%");
+			customValDiv.add(entryTicketTxt);
+		}else if(vorgang.getType().equals(IViewConstants.NEW_FEATURE)) {
+			Checkbox approvedChk = new Checkbox();
+			approvedChk.setValue(vorgang.isGenehmigt());
+			approvedChk.setLabel("Genehmigt");
+			customValDiv.add(approvedChk);
+		}else if(vorgang.getType().equals(IViewConstants.IMPROVEMENT)) {
+			TextField existingFeatureTxt = new TextField("Verbesserte Funktion");
+			existingFeatureTxt.setValue(vorgang.getFunction());
+			existingFeatureTxt.getStyle().set("width", "100%");
+			customValDiv.add(existingFeatureTxt);
+		}
+		
 
 		// dialog buttons
 
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 
 		Button saveBtn = new Button("Speichern", new Icon(VaadinIcon.CHECK));
-//		saveBtn.addClickListener(e -> updateProcess(processId));
-		saveBtn.addClickListener(e -> UI.getCurrent().getPage().reload());
+		saveBtn.addClickListener(e -> {
+			ArrayList<MitarbeiterDto> selectedUsers = new ArrayList<>();
+			selectedUsers.addAll(userMultiselect.getSelectedItems());
+			
+			if(vorgang.getType().equals(IViewConstants.BUGFIX)) {
+				//update bugfix
+				boardLogic.updateVorgang(processId,
+						new VorgangDto(processId, processTitle.getValue(), processDescription.getValue(), selectedUsers,
+								urgency.getValue(), vorgang.getType(), ((TextField)customValDiv.getChildren().findFirst().get()).getValue(), "", false));
+			}else if(vorgang.getType().equals(IViewConstants.NEW_FEATURE)){
+				//create new feature
+				boardLogic.updateVorgang(processId,
+				new VorgangDto(processId, processTitle.getValue(), processDescription.getValue(), selectedUsers,
+						urgency.getValue(), vorgang.getType(), "", "", ((Checkbox)customValDiv.getChildren().findFirst().get()).getValue()));
+			}else if(vorgang.getType().equals(IViewConstants.IMPROVEMENT)){
+				//create improvement
+				boardLogic.updateVorgang(processId,
+						new VorgangDto(processId, processTitle.getValue(), processDescription.getValue(), selectedUsers,
+								urgency.getValue(), vorgang.getType(), "", ((TextField)customValDiv.getChildren().findFirst().get()).getValue(), false));
+			}
+			
+			boardLogic.updateSpaltenVorgangArray(processId, boardLogic.getBoard().getSpalten().stream().filter(spalte -> spalte.getName().equals(column.getValue())).findAny().get().getID());
+			dialog.close();
+		});
+		saveBtn.addClickListener(e -> initUi());
 		saveBtn.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
 
 		Button cancelBtn = new Button("Abbrechen", new Icon(VaadinIcon.CLOSE));
 		cancelBtn.addClickListener(e -> dialog.close());
 
 		Button deleteBtn = new Button("Löschen", new Icon(VaadinIcon.TRASH));
-//		deleteBtn.addClickListener(e -> updateProcess(processId));
 
 		deleteBtn.addClickListener(e -> {
 			// open confirm dialog, ask the user if he really wants to delete this process
@@ -171,17 +233,22 @@ public class DeskView extends VerticalLayout {
 			confirmDeleteBtn.addThemeVariants(ButtonVariant.LUMO_ERROR);
 			confirmDeleteBtn.getStyle().set("margin-right", "10px");
 
-			// TODO implement delete process on controller
-			confirmDeleteBtn.addClickListener(e2 -> UI.getCurrent().getPage().reload());
-
+			// delete process
+			confirmDeleteBtn.addClickListener(e2 -> {
+				boardLogic.deleteVorgangByID(processId);
+				dialog.close();
+				confirmProcessDeleteDialog.close();
+				initUi();
+			});
+			
 			Button cancelDeleteBtn = new Button("Abbrechen", new Icon(VaadinIcon.CLOSE));
 			cancelDeleteBtn.addClickListener(e2 -> confirmProcessDeleteDialog.close());
 
-			// TODO add process title
-			confirmProcessDeleteDialog.add(new Paragraph("lorem ipsum" + " löschen?"), confirmDeleteBtn,
+			confirmProcessDeleteDialog.add(new Paragraph(vorgang.getTitel() + " löschen?"), confirmDeleteBtn,
 					cancelDeleteBtn);
 			confirmProcessDeleteDialog.open();
 		});
+		
 		deleteBtn.addThemeVariants(ButtonVariant.LUMO_ERROR);
 		deleteBtn.setWidth("150px");
 
@@ -191,7 +258,7 @@ public class DeskView extends VerticalLayout {
 		rightButtonsWrapper.setJustifyContentMode(JustifyContentMode.END);
 		buttonLayout.add(deleteBtn, rightButtonsWrapper);
 
-		dialogLayout.add(column, processTitle, processDescription, userMultiselect, urgency, buttonLayout);
+		dialogLayout.add(column, processTitle, processDescription, userMultiselect, urgency, customValDiv, buttonLayout);
 
 		dialog.add(dialogLayout);
 		dialog.open();
@@ -210,22 +277,28 @@ public class DeskView extends VerticalLayout {
 		dialog.setWidth("50%");
 		dialog.setHeight("70%");
 
-		ComboBox<String> column = new ComboBox<>("Spalte");
-		column.setItems("Backlog", "In Progress", "On Hold", "Done");
+		Tabs typesTabs = new Tabs();
+		Tab bugfixTab = new Tab(IViewConstants.BUGFIX);
+		Tab newfeatureTab = new Tab(IViewConstants.NEW_FEATURE);
+		Tab improvementTab = new Tab(IViewConstants.IMPROVEMENT);
+		typesTabs.add(bugfixTab, newfeatureTab, improvementTab);
+		typesTabs.addThemeVariants(TabsVariant.LUMO_CENTERED);
 		
+
+		ComboBox<String> column = new ComboBox<>("Spalte");
+		List<String> columnNames = new ArrayList<>();
+		boardLogic.getBoard().getSpalten().forEach(col->columnNames.add(col.getName()));
+		column.setItems(columnNames);
+
 		TextField processTitle = new TextField("Titel");
 
 		TextArea processDescription = new TextArea("Beschreibung");
 
-		VerticalLayout userListLayout = new VerticalLayout();
-		userListLayout.add(new Paragraph("Mitarbeiter"));
-		for (String user : users) {
-			HorizontalLayout userLayout = new HorizontalLayout();
-			userLayout.setAlignItems(Alignment.CENTER);
-			userLayout.getStyle().set("margin-top", "5px");
-			userLayout.add(new Checkbox(), new Avatar(user), new Paragraph(user));
-			userListLayout.add(userLayout);
-		}
+		MultiselectComboBox<MitarbeiterDto> userMultiselect = new MultiselectComboBox<>();
+		userMultiselect.setLabel("Mitarbeiter");
+		userMultiselect.setPlaceholder("Mitarbeiter auswählen...");
+		userMultiselect.setItems(users);
+		userMultiselect.setItemLabelGenerator(user -> user.getVorname() + " " + user.getNachname());
 
 		ComboBox<String> urgency = new ComboBox<>("Dringlichkeit");
 
@@ -238,13 +311,51 @@ public class DeskView extends VerticalLayout {
 
 		urgency.setItems(urgencies);
 
+		// custom value
+		Div customValDiv = new Div();
+		TextField entryTicketTxtDefault = new TextField("Meldeticket");
+		entryTicketTxtDefault.getStyle().set("width", "100%");
+		customValDiv.add(entryTicketTxtDefault);
+		
+typesTabs.addSelectedChangeListener(event->{
+			customValDiv.removeAll();
+			if(event.getSelectedTab().getLabel().equals(IViewConstants.BUGFIX)) {
+				TextField entryTicketTxt = new TextField("Meldeticket");
+				entryTicketTxt.getStyle().set("width", "100%");
+				customValDiv.add(entryTicketTxt);
+			}else if(event.getSelectedTab().getLabel().equals(IViewConstants.NEW_FEATURE)){
+				Checkbox approvedChk = new Checkbox();
+				approvedChk.setLabel("Genehmigt");
+				customValDiv.add(approvedChk);
+			}else if(event.getSelectedTab().getLabel().equals(IViewConstants.IMPROVEMENT)){
+				TextField existingFeatureTxt = new TextField("Verbesserte Funktion");
+				existingFeatureTxt.getStyle().set("width", "100%");
+				customValDiv.add(existingFeatureTxt);
+			}
+		});
+
 		// dialog buttons
 
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 
 		Button saveBtn = new Button("Speichern", new Icon(VaadinIcon.CHECK));
-//		saveBtn.addClickListener(e -> updateProcess(processId));
-		saveBtn.addClickListener(e -> UI.getCurrent().getPage().reload());
+		saveBtn.addClickListener(e -> {
+			ArrayList<MitarbeiterDto> selectedUsers = new ArrayList<>();
+			selectedUsers.addAll(userMultiselect.getSelectedItems());
+			if(typesTabs.getSelectedTab().getLabel().equals(IViewConstants.BUGFIX)) {
+				//create bugfix
+				boardLogic.createBugFix(processTitle.getValue(), processDescription.getValue(), urgency.getValue(), selectedUsers, boardLogic.getBoard().getSpalten().stream().filter(spalte -> spalte.getName().equals(column.getValue())).findAny().get().getID(), ((TextField)customValDiv.getChildren().findFirst().get()).getValue());
+			}else if(typesTabs.getSelectedTab().getLabel().equals(IViewConstants.NEW_FEATURE)){
+				//create new feature
+				boardLogic.createNewFunction(processTitle.getValue(), processDescription.getValue(), urgency.getValue(), selectedUsers, boardLogic.getBoard().getSpalten().stream().filter(spalte -> spalte.getName().equals(column.getValue())).findAny().get().getID(), ((Checkbox)customValDiv.getChildren().findFirst().get()).getValue());
+			}else if(typesTabs.getSelectedTab().getLabel().equals(IViewConstants.IMPROVEMENT)){
+				//create improvement
+				boardLogic.createVerbesserung(processTitle.getValue(), processDescription.getValue(), urgency.getValue(), selectedUsers, boardLogic.getBoard().getSpalten().stream().filter(spalte -> spalte.getName().equals(column.getValue())).findAny().get().getID(), ((TextField)customValDiv.getChildren().findFirst().get()).getValue());
+			}
+			
+			initUi();
+			dialog.close();
+		});
 		saveBtn.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
 
 		Button cancelBtn = new Button("Abbrechen", new Icon(VaadinIcon.CLOSE));
@@ -256,7 +367,8 @@ public class DeskView extends VerticalLayout {
 		rightButtonsWrapper.setJustifyContentMode(JustifyContentMode.END);
 		buttonLayout.add(rightButtonsWrapper);
 
-		dialogLayout.add(column, processTitle, processDescription, userListLayout, urgency, buttonLayout);
+		dialogLayout.add(typesTabs, column, processTitle, processDescription, userMultiselect, urgency, customValDiv,
+				buttonLayout);
 
 		dialog.add(dialogLayout);
 		dialog.open();
