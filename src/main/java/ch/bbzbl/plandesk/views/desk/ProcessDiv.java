@@ -14,6 +14,11 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
 
+/**
+ * the layout of a process
+ * @author Dani Herzka
+ *
+ */
 @CssImport("./themes/plandesk/styles.css")
 public class ProcessDiv extends Div {
 
@@ -23,6 +28,13 @@ public class ProcessDiv extends Div {
 	private AvatarGroup avatarGroup;
 	private Image type;
 	
+	/**
+	 * Constructor
+	 * @param header
+	 * @param users
+	 * @param urgency
+	 * @param type
+	 */
 	public ProcessDiv(String header, List<MitarbeiterDto> users, String urgency, String type) {
 		this.header = new H3(header);
 		bottomWrapper = new HorizontalLayout();

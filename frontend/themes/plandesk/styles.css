@@ -28,15 +28,15 @@
     }
 
     .processDiv{
-    	border: 5px solid #0052cc;
-    	border-radius: 5px;
+    	margin-left:-3px;
     	padding: 10px;
+    	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
     
     .columnDiv{
-    	border: 3px solid #0052cc;
-    	border-radius: 5px;
+    	border-left: 3px solid rgb(23,44,79);
     	padding: 10px;
+    	padding-left:0;
     }
     
     .Urgent{
