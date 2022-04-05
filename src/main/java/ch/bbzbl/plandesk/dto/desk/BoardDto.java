@@ -11,7 +11,10 @@ public class BoardDto {
     public BoardDto(String name) {
         this.name = name;
     }
-
+    /**
+     * adds a Column to the Array
+     * @param spaltenDto Column that will be added
+     */
     public void addSpalte(SpaltenDto spaltenDto){
         spalten.add(spaltenDto);
     }
@@ -23,12 +26,13 @@ public class BoardDto {
     public void setSpalten(ArrayList<SpaltenDto> spalten) {
         this.spalten = spalten;
     }
-
+    /**
+     * adds a mitarbeiter to the Array
+     * @param mitarbeiterDto mitarbeiter that will be added
+     */
     public void addMitarbeiter(MitarbeiterDto mitarbeiterDto){
         mitarbeiter.add(mitarbeiterDto);
     }
-
-
 
     public ArrayList<MitarbeiterDto> getMitarbeiter() {
         return mitarbeiter;

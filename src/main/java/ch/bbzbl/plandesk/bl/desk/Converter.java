@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 public class Converter {
 
+    /**
+     * converts the Data to a Dto of a Board
+     * @param boardData the given Data
+     * @return Dto with the Data
+     */
     public BoardDto convertBoardToDto(BoardData boardData){
 
         BoardDto boardDto = new BoardDto(boardData.getName());
@@ -23,6 +28,11 @@ public class Converter {
         return boardDto;
     }
 
+    /**
+     * converts mitarbeiter to a Dto
+     * @param mitarbeiter List of Data to transfer
+     * @return List of mitartbeiter
+     */
     public ArrayList<MitarbeiterDto> convertToMitarbeiterDto(ArrayList<MitarbeiterData> mitarbeiter){
 
         ArrayList<MitarbeiterDto> mitarbeiterDtos = new ArrayList<>();
@@ -35,6 +45,12 @@ public class Converter {
         return mitarbeiterDtos;
     }
 
+    /**
+     * converts Dto to Data of Mitarbeiter
+     * @param mitarbeiterData old Data
+     * @param mitarbeiter new Data
+     * @return List of the new Mitarbeiter
+     */
     public ArrayList<MitarbeiterData> convertToMitarbeiterData(ArrayList<MitarbeiterData> mitarbeiterData, ArrayList<MitarbeiterDto> mitarbeiter) {
 
         ArrayList<MitarbeiterData> mitarbeiterDatas = new ArrayList<>();
@@ -49,6 +65,11 @@ public class Converter {
         return mitarbeiterDatas;
     }
 
+    /**
+     * converts Column Data to Dto
+     * @param spaltenData data to tranfer
+     * @return Dto of the Data
+     */
     public SpaltenDto convertToSpaltenDto(SpaltenData spaltenData){
 
         SpaltenDto spaltenDto = new SpaltenDto(spaltenData.getID(),
@@ -60,6 +81,11 @@ public class Converter {
         return spaltenDto;
     }
 
+    /**
+     * converts a Vorgang to a Dto
+     * @param vorgangData data to transfer
+     * @return Dto of a Vprgang
+     */
     public VorgangDto convertToVorgangDto(VorgangData vorgangData){
 
         if(vorgangData instanceof BugFixData){

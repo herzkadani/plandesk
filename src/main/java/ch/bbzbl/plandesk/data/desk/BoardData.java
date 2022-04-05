@@ -15,6 +15,11 @@ public class BoardData {
     public ArrayList<SpaltenData> getSpalten() {
         return spalten;
     }
+
+    /**
+     * adds a Column to the Array
+     * @param spaltenData Column that will be added
+     */
     public void addSpalte(SpaltenData spaltenData){
         spalten.add(spaltenData);
     }
@@ -31,6 +36,10 @@ public class BoardData {
         this.mitarbeiter = mitarbeiter;
     }
 
+    /**
+     * adds a mitarbeiter to the Array
+     * @param mitarbeiterData mitarbeiter that will be added
+     */
     public void addMitarbeiter(MitarbeiterData mitarbeiterData){
         mitarbeiter.add(mitarbeiterData);
     }

@@ -31,7 +31,10 @@ public class SpaltenDto {
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     * adds a Vorgang to the Array
+     * @param vorgangDto Vorgang that will be added
+     */
     public void addToVorgangArray(VorgangDto vorgangDto){
         vorgaenge.add(vorgangDto);
     }

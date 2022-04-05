@@ -1,7 +1,7 @@
 package ch.bbzbl.plandesk.bl.desk;
 
+import ch.bbzbl.plandesk.data.desk.DataInterface;
 import ch.bbzbl.plandesk.data.desk.InMemoryData;
-import ch.bbzbl.plandesk.data.desk.MitarbeiterData;
 import ch.bbzbl.plandesk.dto.desk.BoardDto;
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
 import ch.bbzbl.plandesk.dto.desk.SpaltenDto;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class BoardLogic {
 
-    InMemoryData inMemoryData = new InMemoryData();
+    DataInterface inMemoryData = new InMemoryData();
 
     public void createBugFix(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String meldeTicket){
         inMemoryData.createBugFix(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, meldeTicket);
@@ -22,7 +22,7 @@ public class BoardLogic {
     }
 
     public void createVerbesserung(String titel, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String funktion){
-        inMemoryData.createVerbesserung(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, funktion);
+        inMemoryData.createImprovement(titel,beschreibung, dringlichkeit,  mitarbeiter, SpaltenID, funktion);
     }
 
     public void deleteVorgangByID(int VorgangID){

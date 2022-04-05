@@ -32,7 +32,7 @@ public class InMemoryData implements DataInterface{
     }
 
     @Override
-    public void createVerbesserung(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String funktion) {
+    public void createImprovement(String name, String beschreibung, String dringlichkeit, ArrayList<MitarbeiterDto> mitarbeiter, int SpaltenID, String funktion) {
         getSpalteByID(SpaltenID).addToVorgangArray(
                 new VerbesserungData(vorgangCounter,name, beschreibung,converter.convertToMitarbeiterData(boardData.getMitarbeiter(),mitarbeiter), dringlichkeit, funktion ));
     vorgangCounter++;
@@ -96,11 +96,11 @@ public class InMemoryData implements DataInterface{
         }
         getSpalteByID(NewSpaltenID).addToVorgangArray(transVorgang);
     }
-
+    @Override
     public BoardDto getBoard() {
         return converter.convertBoardToDto(boardData);
     }
-
+    @Override
     public VorgangDto getVorgangByID(int VorgangID) {
         for (SpaltenData SD : boardData.getSpalten()) {
             for (VorgangData VD : SD.getVorgaenge()) {
@@ -111,7 +111,7 @@ public class InMemoryData implements DataInterface{
         }
         return null;
     }
-
+    @Override
     public void initBoard() {
 
         boardData = new BoardData();
@@ -136,7 +136,7 @@ public class InMemoryData implements DataInterface{
     public MitarbeiterData createMitarbeiter(int ID,String vorname, String nachname){
             return new MitarbeiterData(ID, vorname, nachname);
     }
-
+    @Override
     public SpaltenData getSpalteByID(int SpaltenId) {
 
         for(SpaltenData SD : boardData.getSpalten()){
@@ -146,7 +146,7 @@ public class InMemoryData implements DataInterface{
         }
         return null;
     }
-
+    @Override
     public SpaltenDto getSpalteByVorgangID(int VorgangID) {
         for (SpaltenData SD : boardData.getSpalten()) {
             for (VorgangData VD : SD.getVorgaenge()) {

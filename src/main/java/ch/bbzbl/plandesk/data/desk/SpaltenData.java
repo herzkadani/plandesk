@@ -13,10 +13,18 @@ public class SpaltenData {
         this.name = name;
     }
 
+    /**
+     * adds a Vorgang to the Array
+     * @param vorgangData Vorgang that will be added
+     */
     public void addToVorgangArray(VorgangData vorgangData){
         vorgaenge.add(vorgangData);
     }
 
+    /**
+     * removes a Vorgang from the Array
+     * @param vorgangData Vorgang that will be deleted
+     */
     public void removeFromVorgangArray(VorgangData vorgangData){
         vorgaenge.remove(vorgangData);
     }
