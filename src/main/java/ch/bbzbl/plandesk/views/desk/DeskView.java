@@ -1,6 +1,5 @@
 package ch.bbzbl.plandesk.views.desk;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +16,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
-import ch.bbzbl.plandesk.IApplicationConstants;
 import ch.bbzbl.plandesk.bl.desk.BoardLogic;
 import ch.bbzbl.plandesk.dto.desk.BoardDto;
 import ch.bbzbl.plandesk.dto.desk.MitarbeiterDto;
@@ -61,10 +59,6 @@ public class DeskView extends VerticalLayout {
 		boardLogic.initBoard();
 
 		layBoard = new VerticalLayout();
-
-		List<MitarbeiterDto> list = new ArrayList<>();
-		list.add(new MitarbeiterDto(1, "test", "test"));
-		new ProcessDiv("header", list, IApplicationConstants.URGENT, IApplicationConstants.BUGFIX);
 	}
 
 	/**
