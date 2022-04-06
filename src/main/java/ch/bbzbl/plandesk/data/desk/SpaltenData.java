@@ -6,7 +6,7 @@ public class SpaltenData {
 
     private int ID;
     private String name;
-    private ArrayList<VorgangData> vorgaenge = new ArrayList();
+    private ArrayList<VorgangData> vorgaenge = new ArrayList<>();
 
     public SpaltenData(int ID, String name) {
         this.ID = ID;

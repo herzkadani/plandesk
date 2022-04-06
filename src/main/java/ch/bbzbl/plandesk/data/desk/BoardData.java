@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class BoardData {
 
     private String name;
-    private ArrayList<SpaltenData> spalten = new ArrayList();
-    private ArrayList<MitarbeiterData> mitarbeiter = new ArrayList();
+    private ArrayList<SpaltenData> spalten = new ArrayList<>();
+    private ArrayList<MitarbeiterData> mitarbeiter = new ArrayList<>();
 
     public BoardData() {
         this.name = "PlanDesk";
