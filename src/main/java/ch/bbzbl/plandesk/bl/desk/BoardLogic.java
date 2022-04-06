@@ -33,6 +33,7 @@ public class BoardLogic {
         inMemoryData.updateVorgang(VorgangID, vorgangDto);
     }
 
+    @Deprecated
     public void setMitarbeiterOfVorgang(int VorgangID, ArrayList<MitarbeiterDto> mitarbeiter){
         inMemoryData.setMitarbeiterOfVorgang(VorgangID, mitarbeiter);
     }

@@ -62,6 +62,7 @@ public abstract class VorgangData {
      * adds a Mitarbeiter to the Array
      * @param mitarbeiterData Mitarbeiter that will be added
      */
+    @Deprecated
     public void addMitarbeiter(MitarbeiterData mitarbeiterData){
         mitarbeiter.add(mitarbeiterData);
     }
