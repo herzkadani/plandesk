@@ -137,6 +137,12 @@ public class InMemoryData implements DataInterface{
             return new MitarbeiterData(ID, vorname, nachname);
     }
     @Override
+    public void createNewMitarbeiter(String vorname, String nachname){
+        boardData.addMitarbeiter(new MitarbeiterData(mitarbeiterCounter, vorname,nachname));
+        mitarbeiterCounter++;
+    }
+
+    @Override
     public SpaltenData getSpalteByID(int SpaltenId) {
 
         for(SpaltenData SD : boardData.getSpalten()){

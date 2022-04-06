@@ -55,8 +55,11 @@ public class BoardLogic {
     }
 
     public void initBoard(){
-
         inMemoryData.initBoard();
+    }
+
+    public void createNewMitarbeiter(String vorname, String nachname){
+        inMemoryData.createNewMitarbeiter(vorname,nachname);
     }
 
 }

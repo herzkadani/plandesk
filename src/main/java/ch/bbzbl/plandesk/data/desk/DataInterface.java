@@ -8,7 +8,7 @@ import ch.bbzbl.plandesk.dto.desk.VorgangDto;
 
 import java.util.ArrayList;
 
-//split in kleinere Interfaces
+//TODO split in kleinere Interfaces
 
 public interface DataInterface {
     /**
@@ -87,6 +87,13 @@ public interface DataInterface {
      * initializes a Board with Name and Columns
      */
     void initBoard();
+
+    /**
+     * creates a new Mitarbeiter
+     * @param vorname vorname
+     * @param nachname nachname
+     */
+    void createNewMitarbeiter(String vorname, String nachname);
 
     /**
      * retunrs a Spalte by ginven ID
