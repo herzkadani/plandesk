@@ -4,7 +4,7 @@
       --lumo-primary-color-50pct: hsla(216, 100%, 40%, 0.5);
       --lumo-primary-color-10pct: hsla(216, 100%, 40%, 0.1);
       --lumo-primary-text-color:  	hsl(216, 100%, 40%);
-      --lumo-shade:  	hsl(218, 54%, 20%);
+      --lumo-shade:  	#1e2460;
       --lumo-shade-5pct: hsla(218, 54%, 20%, 0.05);
       --lumo-shade-10pct: hsla(218, 54%, 20%, 0.1);
       --lumo-shade-20pct: hsla(218, 54%, 20%, 0.2);
@@ -34,7 +34,7 @@
     }
     
     .columnDiv{
-    	border-left: 3px solid rgb(23,44,79);
+    	border-left: 3px solid #1e2460;
     	padding: 10px;
     	padding-left:0;
     }

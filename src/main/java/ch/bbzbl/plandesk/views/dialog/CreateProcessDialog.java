@@ -34,6 +34,9 @@ public class CreateProcessDialog extends ProcessDialog {
 		tabsType = new Tabs(new Tab(IApplicationConstants.BUGFIX), new Tab(IApplicationConstants.NEW_FEATURE),
 				new Tab(IApplicationConstants.IMPROVEMENT));
 		tabsType.addThemeVariants(TabsVariant.LUMO_CENTERED);
+		
+		cmbStatus.setValue(boardLogic.getBoard().getSpalten().get(0).getName());
+		cmbPriority.setValue(IApplicationConstants.LOW);
 
 		// custom value depending on process type
 		layCustomVal.add(txtEntryTicket);
